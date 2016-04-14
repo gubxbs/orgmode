@@ -1,0 +1,196 @@
+
+* Maintenance-Mode checken
+
+* Brose-Orga-Tasks
+
+** TODO Shortcut Cheatsheet fuer org-mode ausdrucken
+
+** APPT Abteilungsrunde<2016-04-11 Mon>
+   CLOCK: [2016-04-11 Mon 10:56]--[2016-04-11 Mon 12:00] =>  1:04
+** APPT SAP-Basis-Runde<2016-04-11 Mon>
+   CLOCK: [2016-04-11 Mon 14:00]--[2016-04-11 Mon 15:17] =>  1:17
+
+Notizen:
+Kollegen aus Ostrava ab naechste Woche, 1. Woche Brose-Termine
+ab Mai Michal Bereitschaft!
+Bereitschaft-Wunschkonzert in RT-Runde im JUni
+
+POP im Cloudcontrol auf Prod gesetzt! vorher SAP-CRIT
+EBP evtl. auch
+HRP produktiv
+
+
+* privates
+
+** TODO Absprache mit Nicole wegen 12.05.2016
+
+** DONE Ueberweisung Kidsclub August
+
+** TODO Incident-Bearbeitung
+*** 10492658
+*** 10493127  
+   CLOCK: [2016-04-11 Mon 09:53]--[2016-04-11 Mon 09:57] =>  0:04
+** TODO Zeiterfassung CAT2
+   
+* Brose Oracle-NON-SAP
+
+** APPT Absprache mit Huemmno
+   CLOCK: [2016-04-12 Tue 09:43]--[2016-04-12 Tue 09:44] =>  0:01
+** Incidents
+
+*** 100% core dump odceccp, 10493758  
+    CLOCK: [2016-04-12 Tue 09:14]--[2016-04-12 Tue 09:19] =>  0:05
+    CLOCK: [2016-04-12 Tue 09:12]--[2016-04-12 Tue 09:14] =>  0:02
+
+** TODO Systemcopy Torquenet
+   CLOCK: [2016-04-11 Mon 16:12]--[2016-04-11 Mon 16:28] =>  0:16
+   CLOCK: [2016-04-11 Mon 15:38]--[2016-04-11 Mon 15:45] =>  0:07
+   CLOCK: [2016-04-11 Mon 10:04]--[2016-04-11 Mon 10:14] =>  0:10
+*** DONE new bronze-LUN requested by Storage-Team
+*** DONE BRONZE-Lun anbinden, Storage auf PDT vergroessern
+ 
+*** WAITING FOR RMAN-Duplicate
+*** TODO Storage hinterher konsolidieren, Tablespaces verkleinern und auf andere Platten schieben
+*** INPROGRESS export Quartalsdump
+    
+** TODO Check error messages ocobrmq
+   CLOCK: [2016-04-11 Mon 15:45]--[2016-04-11 Mon 15:55] =>  0:10
+Database restarted, potentially RMAN-Backup orphaned session
+
+*** meldet I/O Error - Ursache unklar
+   CLOCK: [2016-04-11 Mon 09:16]--[2016-04-11 Mon 09:21] =>  0:05
+** DONE Check error messages CTN
+*** meldet I/O Errros - Ursache nicht klar
+   CLOCK: [2016-04-11 Mon 09:21]--[2016-04-11 Mon 09:25] =>  0:04
+   nach Restart der DB in Ordnung
+** DONE checks nach Changes am Wochenende
+   Systems with reboots and problems
+   - [x] olonzp
+   - [X] rasu0016
+   - [X] curu0016
+   - [X] Fehlermeldung von wueu0101
+
+** TODO Torquenet wieder auf HDD verlagern
+aus politischen Gruenden will Bernhard das nicht auf SSD haben, Termin mit Storage Leuten und Manfred Klein wegen Archivierung 
+
+
+** TODO Oracle-Upgrade 11.2.0.4
+
+*** DBs:
+- [ ] RMT,RMS,RMP
+- [ ] PDB,PDT
+- [ ] WBT
+- [ ] XPC
+- [ ] SMP
+- [ ] BPH
+- [ ] FPH
+- [ ] VPH
+- [ ] odceoid
+- [ ] odceoit
+- [ ] oelmzp
+- [ ] ZPK
+- [ ] ZPW
+- [ ] PDBMAR
+- [ ] PDBKOP
+- [ ] PDBMEE
+- [ ] PDP
+- [ ] ORASTMZPP
+- [ ] ORAMEEZPP
+
+* Cloudcontrol 13c
+** WAITING FOR Download Cloudcontrol 13c Software for Linux
+** TODO Copy Software to cobu2113
+
+* Brose Oracle-VM
+** TODO Clustertest und Doku Oracle-VM
+
+*** TODO Test-VM auf OVM DCE migrieren
+Maintenance-Mode fuer dceu3036 gesetzt bis Mittwoch!
+*** CHECKLIST OVM Move VM to DCE
+    - [X] set Maintenance Mode in SCOM and Cloudcontrol
+    - [X] Stop VM (einen hoeher einordnen)
+    - [X] move VM from Cluster to unassigned VMs
+    - [X] Clone from NFS-StageDisk to DCE using Clone-Customizer
+	- [X] Clone to NFS-StageDisk using Clone-[X]Customizer for NFS
+[X] Clone to NFS-StageDisk using Clone-[X]Customizer for NFS
+
+** TODO Aufbau Oracle-VM Bamberg
+   CLOCK: [2016-04-11 Mon 13:16]--[2016-04-11 Mon 13:58] =>  0:42
+
+** TODO Upgrade Oracle-VM BAM
+** TODO Upgrade Oracle-VM Manager
+** WAITING FOR Upgrade OVM Environment to OVM 3.4
+
+** TODO Check OVM-Manager with multiple Users connected
+   CLOCK: [2016-04-12 Tue 09:27]--[2016-04-12 Tue 09:29] =>  0:02
+Sascha sagt das ist gefaehrlich, versuch zu reproduzieren
+kann leider den Fehler nicht reproduzieren...
+
+
+
+* Brose Netbackup
+** Probleme beim Restore/Duplicate von PDB auf PDT
+   CLOCK: [2016-04-12 Tue 09:04]--[2016-04-12 Tue 09:09] =>  0:05
+Policy Restore Error
+lag an Disk Full auf dceu3010
+
+#+BEGIN: clocktable :maxlevel 2 :scope subtree
+Clock summary at [2016-04-11 Mon 12:17]
+
+| Headline                                   | Time   |      |
+|--------------------------------------------+--------+------|
+| *Total time*                               | *0:34* |      |
+|--------------------------------------------+--------+------|
+| Brose Oracle-SAP                           | 0:34   |      |
+| \__ TODO brtools-Jobs BBC                  |        | 0:23 |
+| \__ TODO check LDAP with Andre, POD new... |        | 0:03 |
+| \__ TODO Tablespace HRP critical, warum... |        | 0:08 |
+#+END:
+
+
+
+* Brose Oracle-SAP
+** TODO Planung Change Dataguard ADP
+** DONE brtools-Jobs BBC
+   CLOCK: [2016-04-12 Tue 09:24]--[2016-04-12 Tue 09:25] =>  0:01
+   CLOCK: [2016-04-11 Mon 16:29]--[2016-04-11 Mon 16:38] =>  0:09
+   CLOCK: [2016-04-11 Mon 12:17]--[2016-04-11 Mon 12:24] =>  0:07
+   CLOCK: [2016-04-11 Mon 10:40]--[2016-04-11 Mon 10:54] =>  0:14
+   CLOCK: [2016-04-11 Mon 10:22]--[2016-04-11 Mon 10:31] =>  0:09
+
+*** DONE Check after first run with crontab
+    DEADLINE: <2016-04-12 Tue> SCHEDULED: <2016-04-12 Tue>
+
+*** affected systems
+    - [X] POD
+    - [X] POQ
+    - [X] POP
+
+** TODO brtools SAP
+
+*** remaining systems
+- [ ] BOD
+- [ ] BOP
+- [ ] K02
+- [ ] P01
+
+** DONE check error-Message BOT
+** TODO brtools-Jobs HRQB schlagen fehl wegen fehlender License
+** TODO Check db_recovery_file_dest EWP
+** DONE check LDAP with Andre, POD new informations
+   CLOCK: [2016-04-11 Mon 10:16]--[2016-04-11 Mon 10:19] =>  0:03
+
+** TODO Dataguard Failover and SAP (Client timeouts, reconnects)
+** DONE Tablespace HRP critical, warum keine SCOM-Alarmierung
+   CLOCK: [2016-04-11 Mon 12:08]--[2016-04-11 Mon 12:16] =>  0:08
+*** DONE Tablespace erweitern
+*** DONE warum keine Alarmierung, passt da etwas mit den Regeln nicht?
+*** nicht noetig da HRP abgestuft wurde
+
+
+
+
+
+
+* INBOX
+tcp.nodelay P01 am 24.04. nicht vergessen

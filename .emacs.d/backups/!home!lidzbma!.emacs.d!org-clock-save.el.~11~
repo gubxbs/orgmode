@@ -1,0 +1,2 @@
+;; org-persist.el - dceu3041 at <2016-04-14 Thu 14:38>
+(setq stored-clock-history '(("/home/lidzbma/brose.org" . 2086) ("/home/lidzbma/brose.org" . 7909) ("/home/lidzbma/brose.org" . 6657) ("/home/lidzbma/brose.org" . 6471) ("/home/lidzbma/brose.org" . 8095)))

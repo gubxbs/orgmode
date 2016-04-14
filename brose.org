@@ -1,14 +1,16 @@
 #+BEGIN: clocktable :maxlevel 2 :scope file
-Clock summary at [2016-04-14 Thu 09:48]
+Clock summary at [2016-04-14 Thu 14:38]
 
 | Headline                                    |   Time |      |
 |---------------------------------------------+--------+------|
-| *Total time*                                | *4:27* |      |
+| *Total time*                                | *5:56* |      |
 |---------------------------------------------+--------+------|
-| Brose-Orga-Tasks & Brose allgemein          |   2:37 |      |
+| Brose-Orga-Tasks & Brose allgemein          |   2:53 |      |
 | \__ APPT Abteilungsrunde<2016-04-11 Mon>    |        | 1:04 |
 | \__ APPT SAP-Basis-Runde<2016-04-11 Mon>    |        | 1:17 |
 | \__ APPT Telefonat mit Oracle               |        | 0:16 |
+| \__ Monitoring                              |        | 0:05 |
+| \__ IET                                     |        | 0:11 |
 | privates                                    |   0:04 |      |
 | \__ TODO Incident-Bearbeitung               |        | 0:04 |
 | Brose Oracle-NON-SAP                        |   0:57 |      |
@@ -16,12 +18,45 @@ Clock summary at [2016-04-14 Thu 09:48]
 | \__ Incidents                               |        | 0:08 |
 | \__ TODO Systemcopy Torquenet               |        | 0:33 |
 | \__ TODO Check error messages ocobrmq       |        | 0:15 |
-| Brose Oracle-VM                             |   0:44 |      |
+| Brose Oracle-VM                             |   1:48 |      |
 | \__ TODO Aufbau Oracle-VM Bamberg           |        | 0:42 |
-| \__ TODO Check OVM-Manager with multiple... |        | 0:02 |
+| \__ Oracle VM 3.4                           |        | 0:16 |
+| \__ DONE Upgrade OVM Environment to...      |        | 0:48 |
+| \__ DONE Check OVM-Manager with multiple... |        | 0:02 |
 | Brose Netbackup                             |   0:05 |      |
 | \__ Probleme beim Restore/Duplicate von...  |        | 0:05 |
+| Brose Oracle-SAP                            |   0:09 |      |
+| \__ TODO brtools SAP                        |        | 0:03 |
 #+END:
+
+
+* Brose Templates
+
+** Template new NON-SAP Database
+- [ ] build new template from existing DB or default template
+- [ ] create IET Service Request
+- [ ] Prepare OS/SAN for new DB after choosing target server
+- [ ] Install DB after creating scripts with dbca
+- [ ] modify /etc/oratab
+- [ ] run postdb.sql from /oracle/tools
+- [ ] Register database in correct RMAN-Catalog
+- [ ] create DNS-Alias, create listener-Config, add LDAP-Alias
+- [ ] add all passwords to keepassx
+- [ ] Monitoring with Cloudcontrol12c or 13c
+- [ ] configure/check automatic log-recycling
+- [ ] create backupconfig in NBU and choose correct NBU-Policy
+- [ ] Start and Check fullbackup
+- [ ] modify cacti-Settings for new db
+- [ ] Add database to dbs.txt on dceu3015:/oracle/repo
+- [ ] PostDB-Check: password-life-time = unlimited?
+- [ ] PostDB-Check: automatic jobs disabled?
+- [ ] PostDB-Check: oramng/oramonitor User created
+- [ ] PostDB-Check: audit_sys_operations=true?
+- [ ] PostDB-Check: control_management_pack_access=NONE?
+- [ ] PostDB-Check: default passwords removed?
+- [ ] is DB for MES-Zpoint? then execute stiwadb.sql
+- [ ] enable unified auditing /oracle/tools/audit.sql
+
 
 
 * Brose-Orga-Tasks & Brose allgemein 
@@ -53,6 +88,11 @@ HRP produktiv
 *** WAITING FOR CIs Oracle-VM
     CLOCK: [2016-04-14 Thu 10:13]--[2016-04-14 Thu 10:24] =>  0:11
 
+* Brose-Setup
+
+** how to use git to sync repository for orgmode
+export HTTPS_PROXY=http://lidzbma:<password>@proxy-eu.brose.net:8080
+git push -u origin master -v
 * privates
 
 ** TODO Incident-Bearbeitung
@@ -92,10 +132,37 @@ Database restarted, potentially RMAN-Backup orphaned session
 
 *** meldet I/O Error - Ursache unklar
    CLOCK: [2016-04-11 Mon 09:16]--[2016-04-11 Mon 09:21] =>  0:05
-** TODO Torquenet wieder auf HDD verlagern
+** FEEDBACK Torquenet wieder auf HDD verlagern
 aus politischen Gruenden will Bernhard das nicht auf SSD haben, Termin mit Storage Leuten und Manfred Klein wegen Archivierung 
 
 ** TODO new NON-SAP Oracle-DB - odcejitp@
+*** new NON-SAP Database
+- [ ] build new template from existing DB or default template
+- [ ] create IET Service Request
+- [ ] Prepare OS/SAN for new DB after choosing target server
+- [ ] Install DB after creating scripts with dbca
+- [ ] modify /etc/oratab
+- [ ] run postdb.sql from /oracle/tools
+- [ ] Register database in correct RMAN-Catalog
+- [ ] create DNS-Alias, create listener-Config, add LDAP-Alias
+- [ ] add all passwords to keepassx
+- [ ] Monitoring with Cloudcontrol12c or 13c
+- [ ] configure/check automatic log-recycling
+- [ ] create backupconfig in NBU and choose correct NBU-Policy
+- [ ] Start and Check fullbackup
+- [ ] modify cacti-Settings for new db
+- [ ] Add database to dbs.txt on dceu3015:/oracle/repo
+- [ ] PostDB-Check: password-life-time = unlimited?
+- [ ] PostDB-Check: automatic jobs disabled?
+- [ ] PostDB-Check: oramng/oramonitor User created
+- [ ] PostDB-Check: audit_sys_operations=true?
+- [ ] PostDB-Check: control_management_pack_access=NONE?
+- [ ] PostDB-Check: default passwords removed?
+- [ ] is DB for MES-Zpoint? then execute stiwadb.sql
+- [ ] enable unified auditing /oracle/tools/audit.sql
+
+
+
 ** TODO Oracle-Upgrade 11.2.0.4
 
 *** DBs:
@@ -173,6 +240,41 @@ alter table HS_ECA.PS_TXN modify lob (CONTENT) (pctversion 0);
 alter table HS_ECA.PS_TXN modify lob (CONTENT) (retention);
 
 Alertlog shows "LOB Freelists need to be dropped. This may take some time."
+
+https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=463645706785215&id=1394613.1&displayIndex=6&_afrWindowMode=0&_adf.ctrl-state=151nnkz884_77#FIX
+nach Reorg:
+exec DBMS_REDEFINITION.FINISH_REDEF_TABLE('TEST','TEST','INTERIM');
+dann Space checken:
+
+TEST SYS@PDT>r
+  1  select segment_name, sum(bytes/1024/1024/1024) GBYTES, count(*) EXTENTS
+  2   from dba_extents where owner='TORQUENET' and segment_name like '%LOB%'
+  3   group by segment_name
+  4*  ORDER BY 1
+
+SEGMENT_NAME                                                                          GBYTES    EXTENTS
+--------------------------------------------------------------------------------- ---------- ----------
+SYS_LOB0000034654C00007$$                                                               1.25        203
+SYS_LOB0000034654C00010$$                                                         .000244141          4
+SYS_LOB0000034654C00011$$                                                         .000061035          1
+
+SEGMENT_NAME                                                                          GBYTES    EXTENTS
+--------------------------------------------------------------------------------- ---------- ----------
+SYS_LOB0000018012C00004$$                                                         .000061035          1
+SYS_LOB0000018015C00007$$                                                         .000061035          1
+SYS_LOB0000018018C00008$$                                                         .000244141          4
+SYS_LOB0000018021C00007$$                                                         .000061035          1
+SYS_LOB0000018024C00014$$                                                         .000061035          1
+SYS_LOB0000018175C00007$$                                                         593.448425       9967
+SYS_LOB0000018175C00010$$                                                         .004089355          6
+SYS_LOB0000018175C00011$$                                                          .00012207          1
+SYS_LOB0000030748C00007$$                                                          .00012207          1
+SYS_LOB0000030748C00010$$                                                          .00012207          1
+SYS_LOB0000030748C00011$$                                                          .00012207          1
+
+
+
+
 
 * Meetings
 ** Abstimmung P01 DB-Aktionen, Erich Eichhorn
@@ -257,10 +359,11 @@ Clock summary at [2016-04-11 Mon 12:17]
 ** DONE Check db_recovery_file_dest EWP
 Parameter erhoeht auf 150 GB
 ** TODO Dataguard Failover and SAP (Client timeouts, reconnects)
-** TODO new SAP-Oracle-Server sappopdbp
-   - [ ] Initscripts
-   - [ ] Device-Takeover/CI
-   - [ ] RMAN-Maintenance
+** WAITING FOR new SAP-Oracle-Server sappopdbp
+   CLOCK: [2016-04-14 Thu 15:16]--[2016-04-14 Thu 15:19] =>  0:03
+   - [ ] Initscripts -- evtl. erst nach 12c Upgrade
+   - [X] Device-Takeover/CI
+   - [ ] RMAN-Maintenance -- evtl. erst nach 12c Upgrade
 
 ** TODO Wallets for Dataguard-Observers
    - [ ] SCP
@@ -269,7 +372,9 @@ Parameter erhoeht auf 150 GB
    - [ ] others?
 
 
-
+** WAITING FOR Oracle-Upgrades BBC
+   DEADLINE: <2016-04-21 Thu> SCHEDULED: <2016-04-21 Thu>
+Mail an Andreas Hanf geschrieben, ich brauche Terminvorschlaege, dann Feedback an Sven
 * INBOX
 tcp.nodelay P01 am 24.04. nicht vergessen
 mlid745qgit
